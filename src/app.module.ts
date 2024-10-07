@@ -1,5 +1,3 @@
-import { TransactionsModule } from './transactions/transactions.module';
-import { ProductsModule }     from './products/products.module';
 import { DatabaseConfig }     from './common/config/db-config';
 import { UsersModule }        from './users/users.module';
 import { AuthModule }         from './auth/auth.module';
@@ -9,9 +7,7 @@ import { TypeOrmModule }      from '@nestjs/typeorm';
 
 @Module({
   imports: [
-    ProductsModule,
     UsersModule,
-    TransactionsModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',

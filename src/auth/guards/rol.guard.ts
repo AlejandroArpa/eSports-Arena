@@ -15,7 +15,6 @@ export class RolGuard implements CanActivate {
 
   canActivate(context: ExecutionContext)  {
     const decoratorRol = this.reflector.get<Roles>('rol', context.getHandler());
-    console.log("decoratorRol", decoratorRol);
     if(!decoratorRol) return true;
     
     const request = context.switchToHttp().getRequest();
