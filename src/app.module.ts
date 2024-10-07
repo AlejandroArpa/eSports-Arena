@@ -6,6 +6,7 @@ import { Module, OnModuleInit }             from '@nestjs/common';
 import { ConfigModule }       from '@nestjs/config';
 import { TypeOrmModule }      from '@nestjs/typeorm';
 import { UsersSeed } from './common/seeders/users.seed';
+import { TournamentsModule } from './tournaments/tournaments.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { UsersSeed } from './common/seeders/users.seed';
     }),
     AuthModule,
     PointsModule,
+    TournamentsModule,
   ],
   providers: [
     UsersSeed
