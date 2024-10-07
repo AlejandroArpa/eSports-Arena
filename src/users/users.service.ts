@@ -1,11 +1,13 @@
+import { TryCatch }                       from 'src/common/decorators/try-catch.decorator';
 import { User }                           from './entities/user.entity';
 import { CreateUserDto }                  from './dto/create-user.dto';
 import { UpdateUserDto }                  from './dto/update-user.dto';
 import { InjectRepository }               from '@nestjs/typeorm';
 import { Injectable, NotFoundException }  from '@nestjs/common';
-import { Not, Repository }                from 'typeorm';
+import { Repository }                     from 'typeorm';
 
 @Injectable()
+@TryCatch()
 export class UsersService {
 
   constructor(
@@ -46,7 +48,11 @@ export class UsersService {
     return user;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number) {
+    const user = await this.usersRepository.findOne({ where: { id } });
+    if(!user) throw new NotFoundException(`User with id ${id} not found`);
+    await this.usersRepository.softDelete({ id });
+    const { password, ...result } = user;
+    return result;
   }
 }

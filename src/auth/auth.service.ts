@@ -1,3 +1,4 @@
+import { TryCatch }                         from 'src/common/decorators/try-catch.decorator';
 import { User }                             from 'src/users/entities/user.entity';
 import { CreateUserDto }                    from 'src/users/dto/create-user.dto';
 import { UsersService }                     from 'src/users/users.service';
@@ -10,6 +11,7 @@ import { LoginUserDto }                     from './dto';
 
 
 @Injectable()
+@TryCatch()
 export class AuthService {
   constructor( 
     @InjectRepository(User)

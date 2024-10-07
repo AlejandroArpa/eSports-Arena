@@ -1,3 +1,4 @@
+import { Point }                                        from 'src/points/entities/point.entity';
 import { User }                                         from 'src/users/entities/user.entity';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory }  from '@nestjs/typeorm';
 import { Injectable }                                   from '@nestjs/common';
@@ -15,7 +16,7 @@ export class DatabaseConfig implements TypeOrmOptionsFactory {
       username: this.configService.get('DB_USERNAME'),
       password: this.configService.get('DB_PWD'),
       database: this.configService.get('DB_NAME'),
-      entities: [User],
+      entities: [User, Point],
       synchronize: true,
     };
   }
