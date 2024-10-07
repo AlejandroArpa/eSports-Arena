@@ -1,3 +1,4 @@
+import { Tournament }                                   from 'src/tournaments/entities/tournament.entity';
 import { Point }                                        from 'src/points/entities/point.entity';
 import { User }                                         from 'src/users/entities/user.entity';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory }  from '@nestjs/typeorm';
@@ -16,7 +17,7 @@ export class DatabaseConfig implements TypeOrmOptionsFactory {
       username: this.configService.get('DB_USERNAME'),
       password: this.configService.get('DB_PWD'),
       database: this.configService.get('DB_NAME'),
-      entities: [User, Point],
+      entities: [User, Point, Tournament],
       synchronize: true,
     };
   }
