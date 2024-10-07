@@ -6,6 +6,8 @@ import { Module, OnModuleInit }             from '@nestjs/common';
 import { ConfigModule }       from '@nestjs/config';
 import { TypeOrmModule }      from '@nestjs/typeorm';
 import { UsersSeed } from './common/seeders/users.seed';
+import { TournamentsModule } from './tournaments/tournaments.module';
+import { TournamentsSeed } from './common/seeders/tournament.seed';
 
 @Module({
   imports: [
@@ -20,16 +22,19 @@ import { UsersSeed } from './common/seeders/users.seed';
     }),
     AuthModule,
     PointsModule,
+    TournamentsModule,
   ],
   providers: [
-    UsersSeed
+    UsersSeed,
+    TournamentsSeed,
   ],
 })
 export class AppModule implements OnModuleInit {
-  constructor(private readonly usersSeed: UsersSeed) {}
+  constructor(private readonly usersSeed: UsersSeed, private readonly tournamentSeed: TournamentsSeed) {}
 
   async onModuleInit() {
     console.log('Seeding data...');
     await this.usersSeed.seed();
+    await this.tournamentSeed.seed();
   }
 }

@@ -7,6 +7,7 @@ import { Module }           from '@nestjs/common';
 @Module({
   controllers: [PointsController],
   providers: [PointsService],
-  imports: [ TypeOrmModule.forFeature([Point]) ]
+  imports: [ TypeOrmModule.forFeature([Point]) ],
+  exports: [PointsService, TypeOrmModule]
 })
 export class PointsModule {}
