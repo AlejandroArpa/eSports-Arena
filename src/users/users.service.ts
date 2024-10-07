@@ -26,7 +26,10 @@ export class UsersService {
   }
 
   async findOne(id: number) {
-    
+    const user = await this.usersRepository.findOne({ where: { id } });
+    if(!user) throw new NotFoundException(`User with id ${id} not found`);
+    const { password, ...result } = user;
+    return result;
   }
 
   async findOneByEmail(email: string) {
@@ -35,8 +38,12 @@ export class UsersService {
     return user;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const user = await this.usersRepository.findOne({ where: { id } });
+    if(!user) throw new NotFoundException(`User with id ${id} not found`);
+    this.usersRepository.merge(user, updateUserDto);
+    await this.usersRepository.save(user);
+    return user;
   }
 
   remove(id: number) {
