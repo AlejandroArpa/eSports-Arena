@@ -1,4 +1,4 @@
-import { IsBoolean, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsBoolean, IsDate, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateTournamentDto {
 
@@ -12,4 +12,7 @@ export class CreateTournamentDto {
   @IsNumber()
   @IsOptional()
   maxPlayers?: number;
+
+  @IsDate()
+  startDate: Date;
 }
