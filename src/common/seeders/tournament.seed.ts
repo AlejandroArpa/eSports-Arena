@@ -57,16 +57,5 @@ export class TournamentsSeed {
       const newPoints = this.pointsRepository.create({ user: getPlayer, tournament: getTournament });
       await this.pointsRepository.save(newPoints);
     }))
-    
-    
-
-    // await Promise.all(users.map(async (user) => {
-    //   const userExists = await this.usersRepository.findOne({ where: { email: user.email } });
-    //   if(userExists) return;
-    //   const hashedPassword = await bcrypt.hash(user.password, 10);
-    //   user.password = hashedPassword;
-    //   const newUser = this.usersRepository.create(user);
-    //   await this.usersRepository.save(newUser);
-    // }));
   }
 }

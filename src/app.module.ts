@@ -8,6 +8,7 @@ import { TypeOrmModule }      from '@nestjs/typeorm';
 import { UsersSeed } from './common/seeders/users.seed';
 import { TournamentsModule } from './tournaments/tournaments.module';
 import { TournamentsSeed } from './common/seeders/tournament.seed';
+import { MatchesModule } from './matches/matches.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { TournamentsSeed } from './common/seeders/tournament.seed';
     AuthModule,
     PointsModule,
     TournamentsModule,
+    MatchesModule,
   ],
   providers: [
     UsersSeed,
