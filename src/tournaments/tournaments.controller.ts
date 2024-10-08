@@ -31,4 +31,10 @@ export class TournamentsController {
   update(@Param('id') id: string, @Body() updateTournamentDto: UpdateTournamentDto) {
     return this.tournamentsService.update(+id, updateTournamentDto);
   }
+
+  @PrivateService(Roles.ADMIN)
+  @Post()
+  create(@Body() createTournamentDto: CreateTournamentDto) {
+    return this.tournamentsService.create(createTournamentDto);
+  }
 }

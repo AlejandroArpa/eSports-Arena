@@ -8,6 +8,7 @@ import { Tournament } from './entities/tournament.entity';
 import { User } from 'src/users/entities/user.entity';
 import { Point } from 'src/points/entities/point.entity';
 import { TryCatch } from 'src/common/decorators/try-catch.decorator';
+import { Match } from 'src/matches/entities/match.entity';
 
 @TryCatch()
 @Injectable()
@@ -18,7 +19,9 @@ export class TournamentsService {
     @InjectRepository(User)
     private usersRepository: Repository<User>,
     @InjectRepository(Point)
-    private pointsRepository: Repository<Point>
+    private pointsRepository: Repository<Point>,
+    @InjectRepository(Match)
+    private matchesRepository: Repository<Match>
   ){}
 
   async addPlayer(addPlayer: AddPlayerDto) {
@@ -34,9 +37,21 @@ export class TournamentsService {
     return await this.tournamentsRepository.find();
   }
 
-  async findOne(id: number) {
-    const tournament = await this.tournamentsRepository.findOne({ where: { id } });
+  async findOne(id: number) {    
+    const tournament = await this.tournamentsRepository.findOne({ where: { id } });    
     if(!tournament) throw new NotFoundException(`Tournament with id ${id} not found`);
+    if(tournament.finished){
+        const players = await this.pointsRepository.find({where: {tournament}, relations: ['user']});   
+        const sanitizedPlayers = players.map(point => {
+          const { password, ...sanitizedUser } = point.user;
+          return { ...point, user: sanitizedUser };
+        });     
+        const sortedPlayers = sanitizedPlayers.sort((a, b) => b.points - a.points);
+        const winner = sortedPlayers[0];
+        const user = await this.usersRepository.findOne({where: {id: winner.user.id}});
+        const {password, ...result} = user;
+        return {winner: result, players: sortedPlayers, ...tournament};
+      }
     return tournament;
   }
 
@@ -52,8 +67,13 @@ export class TournamentsService {
     const tournament = await this.tournamentsRepository.findOne({ where: { id } });
     if(!tournament) throw new NotFoundException(`Tournament with id ${id} not found`);
     if(!tournament.finished){
-
-      this.tournamentsRepository.merge(tournament, updateTournamentDto);
+      const matches = await this.matchesRepository.find({where: {tournament}})
+      const allMatchesFinished = matches.every(match => match.finished);
+      if(allMatchesFinished){
+        tournament.finished = true;
+      }
+      const {finished, ...newTournament} = updateTournamentDto;
+      this.tournamentsRepository.merge(tournament, newTournament);
       await this.tournamentsRepository.save(tournament);
       return tournament;
     }
