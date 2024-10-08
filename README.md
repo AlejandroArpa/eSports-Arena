@@ -9,6 +9,9 @@ Antes de comenzar, asegúrate de tener instalados los siguientes requisitos en t
 - [Node.js](https://nodejs.org/) (versión 14 o superior)
 - [npm](https://www.npmjs.com/) o [yarn](https://yarnpkg.com/)
 - [PostgreSQL](https://www.postgresql.org/) como base de datos
+## Diagrama ER
+
+![image](https://github.com/user-attachments/assets/910be3a6-e1ba-457c-a409-1bd90c2661cd)
 
 ## Instalación
 
