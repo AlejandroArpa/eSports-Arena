@@ -2,7 +2,8 @@ import { AuditableEntity }                                    from "src/common/e
 import { Point }                                              from "src/points/entities/point.entity";
 import { Roles }                                              from "src/common/enums/roles.enum";
 import { IsEmail, IsString }                                  from "class-validator";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn }  from "typeorm";
+import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn }  from "typeorm";
+import { Match }                                              from "src/matches/entities/match.entity";
 
 @Entity()
 export class User extends AuditableEntity {
@@ -26,4 +27,7 @@ export class User extends AuditableEntity {
 
   @OneToMany(() => Point, point => point.user)
   points: Point[];
+
+  @ManyToMany(() => Match, match => match.users)
+  matches: Match[];
 }

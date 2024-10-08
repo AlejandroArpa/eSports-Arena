@@ -6,9 +6,11 @@ import {
   OneToMany, 
   PrimaryGeneratedColumn 
 }                                       from "typeorm";
+import { AuditableEntity } from "src/common/entities/auditable.entity";
+import { Match } from "src/matches/entities/match.entity";
 
 @Entity()
-export class Tournament {
+export class Tournament extends AuditableEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -16,11 +18,11 @@ export class Tournament {
   @IsString()
   name: string;
 
-  @Column({ name: 'init_matches_num' })
+  @Column({ name: 'init_matches_num'})
   @IsNumber()
   numbersInitialMatches: number;
 
-  @Column()
+  @Column({default: false})
   @IsBoolean()
   finished: boolean;
 
@@ -28,10 +30,10 @@ export class Tournament {
   @IsDate()
   startDate: Date;
 
-  // @OneToMany(() => Match, match => match.tournament)
-  // matches: Match[];
+  @OneToMany(() => Match, match => match.tournament)
+  matches: Match[];
 
-  @Column()
+  @Column({ default: 8 })
   @IsNumber()
   maxPlayers: number;
 
