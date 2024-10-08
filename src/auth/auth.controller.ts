@@ -1,9 +1,11 @@
 import { TryCatch }                         from 'src/common/decorators/try-catch.decorator';
 import { CreateUserDto }                    from 'src/users/dto/create-user.dto';
+import { ApiTags }                          from '@nestjs/swagger';
 import { Body, Controller, HttpCode, Post}  from '@nestjs/common';
 import { AuthService }                      from './auth.service';
 import { LoginUserDto }                     from './dto';
 
+@ApiTags('auth')
 @TryCatch()
 @Controller('auth')
 export class AuthController {

@@ -1,11 +1,20 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { TournamentsService } from './tournaments.service';
-import { CreateTournamentDto } from './dto/create-tournament.dto';
-import { UpdateTournamentDto } from './dto/update-tournament.dto';
-import { AddPlayerDto } from './dto/add-player.dto';
-import { PrivateService } from 'src/auth/decorators/auth.decorator';
-import { Roles } from 'src/common/enums/roles.enum';
+import { PrivateService }       from 'src/auth/decorators/auth.decorator';
+import { CreateTournamentDto }  from './dto/create-tournament.dto';
+import { UpdateTournamentDto }  from './dto/update-tournament.dto';
+import { Roles }                from 'src/common/enums/roles.enum';
+import { TournamentsService }   from './tournaments.service';
+import { AddPlayerDto }         from './dto/add-player.dto';
+import { ApiTags }              from '@nestjs/swagger';
+import { 
+  Controller, 
+  Get, 
+  Post, 
+  Body, 
+  Patch, 
+  Param
+}                               from '@nestjs/common';
 
+@ApiTags('tournaments')
 @Controller('tournaments')
 export class TournamentsController {
   constructor(private readonly tournamentsService: TournamentsService) {}

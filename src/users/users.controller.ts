@@ -3,6 +3,7 @@ import { Roles }          from 'src/common/enums/roles.enum';
 import { CreateUserDto }  from './dto/create-user.dto';
 import { UpdateUserDto }  from './dto/update-user.dto';
 import { UsersService }   from './users.service';
+import { ApiTags }        from '@nestjs/swagger';
 import { 
   Controller, 
   Get, 
@@ -13,6 +14,7 @@ import {
   Delete 
 }                         from '@nestjs/common';
 
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -22,6 +24,7 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
+  @PrivateService()
   @Get()
   findAll() {
     return this.usersService.findAll();
