@@ -60,9 +60,13 @@ Para ejecutar la API en modo de desarrollo, usa el siguiente comando:
 
 ```
 npm run start:dev
-~/
+```
 
 Esto ejecutará el servidor con hot-reload, lo que permite que los cambios se reflejen de inmediato sin necesidad de reiniciar el servidor.
+
+### Swagger
+
+La API cuenta con una interfaz de documentación generada automáticamente con Swagger. Puedes acceder a ella en la ruta `/api/docs` una vez que el servidor esté en ejecución.
 
 
 ## Licencia
