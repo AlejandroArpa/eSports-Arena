@@ -55,10 +55,11 @@ export class TournamentsService {
     return tournament;
   }
 
-  async create(createTournament: CreateTournamentDto){
-    const tournament = this.tournamentsRepository.findOne({where: { name: createTournament.name }});
-    if(tournament) throw new BadRequestException("Tournament already exists")
-    const newTournament = this.tournamentsRepository.create(createTournament);
+  async create(createTournament: CreateTournamentDto){  
+    const tournament = await this.tournamentsRepository.findOne({where: { name: createTournament.name }});
+    if(tournament) throw new BadRequestException("Tournament already exists");
+    const tournamentData = {...createTournament, finished: false, numbersInitialMatches: createTournament.maxPlayers/2 };
+    const newTournament = this.tournamentsRepository.create(tournamentData);
     await this.tournamentsRepository.save(newTournament);
     return newTournament;
   }

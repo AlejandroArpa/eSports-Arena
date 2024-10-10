@@ -1,3 +1,4 @@
+import { Transform } from "class-transformer";
 import { IsBoolean, IsDate, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateTournamentDto {
@@ -10,9 +11,13 @@ export class CreateTournamentDto {
   finished?: boolean;
 
   @IsNumber()
-  @IsOptional()
-  maxPlayers?: number;
+  maxPlayers: number;
 
+  @Transform(({ value }) => new Date(value))
   @IsDate()
   startDate: Date;
+
+  @IsNumber()
+  @IsOptional()
+  numbersInitialMatches: number;
 }

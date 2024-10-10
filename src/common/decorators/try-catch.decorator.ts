@@ -30,6 +30,8 @@ export function TryCatch(){
             const result = await originalMethod.apply(this, args);
             return result;
           } catch (error) {
+            console.log('Error:', error);
+            
             const handledError = dbErrorHandler.handleDatabaseError(error);
             throw handledError instanceof HttpException ? handledError : new HttpException(error.message || 'Internal server error', error.status || 500);
           }          

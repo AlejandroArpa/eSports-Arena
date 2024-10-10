@@ -1,6 +1,7 @@
 import { User }           from 'src/users/entities/user.entity';
 import { JWTStratey }     from './strategies/JWT-strategy';
 import { UsersModule }    from 'src/users/users.module';
+import { ApiKeyGuard }    from './guards/api-key.guard';
 import { AuthController } from './auth.controller';
 import { TypeOrmModule }  from '@nestjs/typeorm';
 import { Module }         from '@nestjs/common';
@@ -24,7 +25,8 @@ import { JwtModule }      from '@nestjs/jwt';
   controllers: [AuthController],
   providers: [
     AuthService,
-    JWTStratey
+    JWTStratey,
+    ApiKeyGuard
   ],
 })
 export class AuthModule {}

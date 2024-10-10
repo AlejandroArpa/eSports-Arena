@@ -20,7 +20,7 @@ export class TournamentsController {
   constructor(private readonly tournamentsService: TournamentsService) {}
 
   @PrivateService()
-  @Post()
+  @Post('/add-player')
   addPlayer(@Body() addPlayer: AddPlayerDto){
     return this.tournamentsService.addPlayer(addPlayer);
   }
@@ -30,13 +30,13 @@ export class TournamentsController {
     return this.tournamentsService.getAllTournaments();
   }
 
-  @Get(':id')
+  @Get('/:id')
   findOne(@Param('id') id: string) {
     return this.tournamentsService.findOne(+id);
   }
 
   @PrivateService(Roles.ADMIN)
-  @Patch(':id')
+  @Patch('/:id')
   update(@Param('id') id: string, @Body() updateTournamentDto: UpdateTournamentDto) {
     return this.tournamentsService.update(+id, updateTournamentDto);
   }
@@ -44,6 +44,7 @@ export class TournamentsController {
   @PrivateService(Roles.ADMIN)
   @Post()
   create(@Body() createTournamentDto: CreateTournamentDto) {
+
     return this.tournamentsService.create(createTournamentDto);
   }
 }
